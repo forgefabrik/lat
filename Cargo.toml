@@ -1,0 +1,2 @@
+[workspace]
+members = ["lat-protocol","lat-engine","lat-server"]
