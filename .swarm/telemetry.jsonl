@@ -1,0 +1,8 @@
+{"timestamp":"2026-06-08T22:20:19.353Z","event":"session_started","sessionId":"ses_156ad7623ffeFF5dxoBEwrMXQJ","agentName":"assistant"}
+{"timestamp":"2026-06-08T22:20:19.353Z","event":"delegation_begin","sessionId":"ses_156ad7623ffeFF5dxoBEwrMXQJ","agentName":"assistant","taskId":"unknown"}
+{"timestamp":"2026-06-08T22:20:19.798Z","event":"heartbeat","sessionId":"ses_156ad7623ffeFF5dxoBEwrMXQJ"}
+{"timestamp":"2026-06-08T22:21:18.045Z","event":"heartbeat","sessionId":"ses_156ad7623ffeFF5dxoBEwrMXQJ"}
+{"timestamp":"2026-06-08T22:23:07.931Z","event":"delegation_begin","sessionId":"ses_156ad7623ffeFF5dxoBEwrMXQJ","agentName":"assistant","taskId":"unknown"}
+{"timestamp":"2026-06-08T22:26:36.721Z","event":"heartbeat","sessionId":"ses_156ad7623ffeFF5dxoBEwrMXQJ"}
+{"timestamp":"2026-06-08T22:31:56.091Z","event":"heartbeat","sessionId":"ses_156ad7623ffeFF5dxoBEwrMXQJ"}
+{"timestamp":"2026-06-08T22:36:55.187Z","event":"heartbeat","sessionId":"ses_156ad7623ffeFF5dxoBEwrMXQJ"}

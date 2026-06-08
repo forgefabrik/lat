@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "scanned_at": "2026-06-08T22:20:19.816Z",
+  "files": [
+    {
+      "path": "docs/ckaude_v0.1:promt.md",
+      "title": "ckaude_v0.1:promt.md",
+      "summary": "🧠 LAT CORE SET (FINAL) 🧱 WORKSPACE ROOT /home/bkg/repo/tower/lat/v0.1_claude/ ⚙️ SYSTEM RULES - event-driven simulation - in-memory state only - tick-based execution - vertical tower world - no d...",
+      "lines": 132,
+      "mtime": 1780953427982.9697
+    },
+    {
+      "path": "docs/codex_v0.1.prompt.md",
+      "title": "codex_v0.1.prompt.md",
+      "summary": "🧠 LAT CORE SET (FINAL) 🧱 WORKSPACE ROOT /home/bkg/repo/tower/lat/v0.1_codex/ │ ├── crates/ │   ├── lat-protocol │   ├── lat-engine │   ├── lat-server │   ├── lat-world │   ├── lat-dungeon │   ├──...",
+      "lines": 153,
+      "mtime": 1780954270092.6697
+    },
+    {
+      "path": "docs/tasks.md",
+      "title": "tasks.md",
+      "summary": "File Structure Overview (final) ├─ Cargo.toml                         # workspace manifest ├─ README.md ├─ IDEE.md ├─ Dockerfile ├─ .dockerignore ├─ .github/ │   └─ workflows/ │       └─ ci.yml ├─ ...",
+      "lines": 1774,
+      "mtime": 1780956626891.6238
+    },
+    {
+      "path": "docs/what.md",
+      "title": "🧠 LAT (Living Agent Tower) – FINAL CORE SPEC",
+      "summary": "--- LAT ist ein: > event-driven, in-memory, tick-based society simulation engine in Rust * kein Default-Port * kein DB-MVP * alles in-memory Snapshot + diff * 1 Tick = 1 Weltzyklus * alles wird übe...",
+      "lines": 1430,
+      "mtime": 1780957202869.1475
+    },
+    {
+      "path": "v0.1_claude/AGENTS.md",
+      "title": "AGENTS.md",
+      "summary": "This repository is a Rust workspace structured as a vertical simulation system. Top‑level directories: - `crates/` → Core Rust modules (simulation engine, protocol, server, economy, life, dungeon, ...",
+      "lines": 222,
+      "mtime": 1780956161650.9082
+    },
+    {
+      "path": "v0.1_claude/CLAUDE.md",
+      "title": "CLAUDE.md",
+      "summary": "This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository. - **Build the entire workspace** ```bash cargo build --workspace ``` - Compiles all crates in ...",
+      "lines": 99,
+      "mtime": 1780955420464.9453
+    },
+    {
+      "path": "v0.1_codex/AGENTS.md",
+      "title": "AGENTS.md",
+      "summary": "This repository is a Rust workspace structured as a vertical simulation system. Top‑level directories: - `crates/` → Core Rust modules (simulation engine, protocol, server, economy, life, dungeon, ...",
+      "lines": 222,
+      "mtime": 1780956284429.5935
+    }
+  ]
+}

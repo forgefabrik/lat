@@ -1,0 +1,123 @@
+{
+  "version": 2,
+  "writtenAt": 1780958214776,
+  "toolAggregates": {
+    "read": {
+      "tool": "read",
+      "count": 1,
+      "successCount": 1,
+      "failureCount": 0,
+      "totalDuration": 42
+    },
+    "invalid": {
+      "tool": "invalid",
+      "count": 3,
+      "successCount": 3,
+      "failureCount": 0,
+      "totalDuration": 19
+    }
+  },
+  "activeAgent": {
+    "ses_156ad7623ffeFF5dxoBEwrMXQJ": "assistant"
+  },
+  "delegationChains": {},
+  "agentSessions": {
+    "ses_156ad7623ffeFF5dxoBEwrMXQJ": {
+      "agentName": "assistant",
+      "lastToolCallTime": 1780958214769,
+      "lastAgentEventTime": 1780957219353,
+      "delegationActive": true,
+      "activeInvocationId": 2,
+      "lastInvocationIdByAgent": {
+        "assistant": 2
+      },
+      "windows": {
+        "assistant:2": {
+          "id": 2,
+          "agentName": "assistant",
+          "startedAtMs": 1780957387931,
+          "toolCalls": 3,
+          "consecutiveErrors": 0,
+          "hardLimitHit": false,
+          "lastSuccessTimeMs": 1780958214775,
+          "recentToolCalls": [
+            {
+              "tool": "invalid",
+              "argsHash": 16798113867805330000,
+              "timestamp": 1780957596388
+            },
+            {
+              "tool": "invalid",
+              "argsHash": 16798113867805330000,
+              "timestamp": 1780957915746
+            },
+            {
+              "tool": "invalid",
+              "argsHash": 16798113867805330000,
+              "timestamp": 1780958214769
+            }
+          ],
+          "warningIssued": false,
+          "warningReason": "",
+          "transientRetryCount": 0
+        },
+        "assistant:1": {
+          "id": 1,
+          "agentName": "assistant",
+          "startedAtMs": 1780957219353,
+          "toolCalls": 2,
+          "consecutiveErrors": 0,
+          "hardLimitHit": false,
+          "lastSuccessTimeMs": 1780957235112,
+          "recentToolCalls": [
+            {
+              "tool": "read",
+              "argsHash": 5461800933665519000,
+              "timestamp": 1780957235053
+            },
+            {
+              "tool": "skill",
+              "argsHash": 10637772417036032000,
+              "timestamp": 1780957276962
+            }
+          ],
+          "warningIssued": false,
+          "warningReason": "",
+          "transientRetryCount": 0
+        }
+      },
+      "lastCompactionHint": 0,
+      "architectWriteCount": 0,
+      "lastCoderDelegationTaskId": null,
+      "currentTaskId": null,
+      "turboMode": false,
+      "gateLog": {},
+      "reviewerCallCount": {},
+      "lastGateFailure": null,
+      "partialGateWarningsIssuedForTask": [],
+      "selfFixAttempted": false,
+      "selfCodingWarnedAtCount": 0,
+      "catastrophicPhaseWarnings": [],
+      "lastPhaseCompleteTimestamp": 0,
+      "lastPhaseCompletePhase": 0,
+      "phaseAgentsDispatched": [
+        "assistant"
+      ],
+      "lastCompletedPhaseAgentsDispatched": [],
+      "qaSkipCount": 0,
+      "qaSkipTaskIds": [],
+      "pendingAdvisoryMessages": [],
+      "taskWorkflowStates": {},
+      "scopeViolationDetected": false,
+      "model_fallback_index": 0,
+      "modelFallbackExhausted": false,
+      "coderRevisions": 0,
+      "revisionLimitHit": false,
+      "fullAutoMode": false,
+      "fullAutoInteractionCount": 0,
+      "fullAutoDeadlockCount": 0,
+      "fullAutoLastQuestionHash": null,
+      "sessionRehydratedAt": 0
+    }
+  }
+}
