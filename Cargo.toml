@@ -1,0 +1,20 @@
+[workspace]
+members = [
+    "crates/lat-protocol",
+    "crates/lat-engine",
+    "crates/lat-server",
+    "crates/lat-dungeon",
+    "crates/lat-education",
+    "crates/lat-society",
+    "crates/lat-economy",
+    "crates/lat-life",
+    "crates/lat-memory",
+    "crates/lat-needs",
+    "crates/lat-facilities",
+    "crates/lat-world",
+    "crates/lat-office",
+    "crates/lat-ceo",
+]
+
+[profile.release]
+opt-level = 3

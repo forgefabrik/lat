@@ -1,0 +1,99 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Common Development Commands
+
+- **Build the entire workspace**
+  ```bash
+  cargo build --workspace
+  ```
+  - Compiles all crates in the workspace.
+
+- **Run tests**
+  ```bash
+  cargo test --workspace
+  ```
+  - Executes unit and integration tests for every crate.
+
+- **Run a single test** (replace `<crate>` and `<test_name>` with the desired values):
+  ```bash
+  cargo test -p <crate> <test_name>
+  ```
+
+- **Run the server** (the entry point for the simulation API)
+  ```bash
+  cargo run -p lat-server
+  ```
+  - Exposes the HTTP endpoints defined in `lat-server` (e.g., `/health`, `/state`, `/events`).
+
+- **Formatting and linting**
+  ```bash
+  cargo fmt            # Format all Rust code
+  cargo clippy --workspace   # Run the linter across the workspace
+  ```
+
+- **Docker build & run** (if you prefer containerised execution)
+  ```bash
+  # Build the image (the Dockerfile is at the repo root)
+  docker build -t lat-sim .
+
+  # Run the container, exposing the server port (replace <PORT> if you change it)
+  docker run --rm -p 8080:<PORT> lat-sim
+  ```
+
+- **Run a specific crate's binary** (e.g., the engine tick loop)
+  ```bash
+  cargo run -p lat-engine
+  ```
+
+## High‑Level Architecture
+
+The project is a Rust workspace composed of a collection of focused crates that model a vertical‑tower simulation. The key crates and their responsibilities are summarised in the design document `docs/ckaude_v0.1:promt.md`; the most important concepts are reproduced here for quick reference.
+
+- **`lat-protocol`** – Defines the canonical event and data types used throughout the system. All other crates share these definitions, ensuring a single source of truth for state changes.
+- **`lat-engine`** – Implements the core tick loop and orchestration of subsystem pipelines. It drives the simulation forward each tick.
+- **`lat-server`** – Exposes the simulation state via an HTTP API and Server‑Sent Events (SSE) stream. Endpoints include `GET /health`, `GET /state`, and `GET /events`.
+- **`lat-dungeon`** – Handles entry‑zone logic and early‑stage economic tasks (e.g., scan, carry, clean, deliver jobs).
+- **`lat-education`** – Provides skill acquisition and research mechanics; agents can gain XP through schooling and produce memory shards.
+- **`lat-society`** – Manages the relationships graph between agents, tracking social connections and updates.
+- **`lat-economy`** – Governs the money system, including salaries, dungeon income, facility costs, and treasury balance.
+- **`lat-life`** – Controls lifecycle transitions such as stage upgrades, retirement, and legacy generation.
+- **`lat-memory`** – Stores transferable knowledge (skill shards, experience shards, social shards) with decay over time.
+- **`lat-needs`** – Represents pressure metrics on agents (e.g., hunger, stress) that drive behaviour.
+- **`lat-facilities`** – Implements building effects (e.g., gyms reduce stress, bars increase social, offices generate money).
+- **`lat-world`** – Describes the vertical tower layout, floor composition, and world‑level structure.
+- **`lat-office`** – Optional UI state handling for UI‑driven interactions.
+- **`lat-ceo`** – Decision controller that receives world state and emits high‑level decision events (spawn agents, open floors, adjust economy, modify difficulty).
+
+### Tick Pipeline
+The engine processes a fixed sequence each tick, feeding the output of one subsystem into the next:
+```
+Dungeon → Education → Society → Office → Needs → Economy → Life → Memory → CEO → Emit Events
+```
+Each stage may emit events on the central event bus (`AgentSpawned`, `JobCompleted`, `XpGained`, `MoneyChanged`, etc.) that other subsystems can react to.
+
+### Event Bus
+All crates publish and subscribe to a lightweight event system. This decouples the simulation logic and allows new subsystems to be added without tight coupling.
+
+### Testing Strategy
+The repository contains a suite of unit and integration tests focused on:
+- Engine tick correctness
+- Event flow integrity
+- Economy balance
+- Lifecycle transitions
+Running `cargo test --workspace` validates these invariants.
+
+## Development Tips (specific to this repo)
+- **Workspace awareness**: When adding a new crate, include it in the `members` array of the top‑level `Cargo.toml`.
+- **Port configuration**: The server does not expose a default port; set the `PORT` environment variable before running `lat-server`.
+- **In‑memory only**: The simulation runs entirely in memory; there is no persistence layer. State is lost on process exit.
+- **Event‑driven**: Most behaviour is triggered by events; look for `.emit(` calls in the source to understand side‑effects.
+
+## Relevant Files
+- `docs/ckaude_v0.1:promt.md` – Full design overview (used to craft the high‑level section above).
+- `Cargo.toml` – Workspace definition.
+- `Dockerfile` – Containerisation entry point.
+
+---
+*Generated by Claude Code*
