@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "writtenAt": 1780958214776,
+  "writtenAt": 1780958828962,
   "toolAggregates": {
     "read": {
       "tool": "read",
@@ -11,10 +11,10 @@
     },
     "invalid": {
       "tool": "invalid",
-      "count": 3,
-      "successCount": 3,
+      "count": 5,
+      "successCount": 5,
       "failureCount": 0,
-      "totalDuration": 19
+      "totalDuration": 32
     }
   },
   "activeAgent": {
@@ -24,7 +24,7 @@
   "agentSessions": {
     "ses_156ad7623ffeFF5dxoBEwrMXQJ": {
       "agentName": "assistant",
-      "lastToolCallTime": 1780958214769,
+      "lastToolCallTime": 1780958828948,
       "lastAgentEventTime": 1780957219353,
       "delegationActive": true,
       "activeInvocationId": 2,
@@ -36,10 +36,10 @@
           "id": 2,
           "agentName": "assistant",
           "startedAtMs": 1780957387931,
-          "toolCalls": 3,
+          "toolCalls": 5,
           "consecutiveErrors": 0,
           "hardLimitHit": false,
-          "lastSuccessTimeMs": 1780958214775,
+          "lastSuccessTimeMs": 1780958828962,
           "recentToolCalls": [
             {
               "tool": "invalid",
@@ -55,10 +55,20 @@
               "tool": "invalid",
               "argsHash": 16798113867805330000,
               "timestamp": 1780958214769
+            },
+            {
+              "tool": "invalid",
+              "argsHash": 16798113867805330000,
+              "timestamp": 1780958522003
+            },
+            {
+              "tool": "invalid",
+              "argsHash": 16798113867805330000,
+              "timestamp": 1780958828947
             }
           ],
-          "warningIssued": false,
-          "warningReason": "",
+          "warningIssued": true,
+          "warningReason": "duration 24/30 min",
           "transientRetryCount": 0
         },
         "assistant:1": {
