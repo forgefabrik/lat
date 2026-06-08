@@ -6,3 +6,5 @@
 {"event":"prompt_injection_skipped","runId":"ses_156ad7623ffeFF5dxoBEwrMXQJ","agentRole":"assistant","agentId":"assistant","rejectionReason":"disabled","metadata":{"reason":"disabled"},"timestamp":"2026-06-08T22:36:54.805Z"}
 {"event":"prompt_injection_skipped","runId":"ses_156ad7623ffeFF5dxoBEwrMXQJ","agentRole":"assistant","agentId":"assistant","rejectionReason":"disabled","metadata":{"reason":"disabled"},"timestamp":"2026-06-08T22:42:02.066Z"}
 {"event":"prompt_injection_skipped","runId":"ses_156ad7623ffeFF5dxoBEwrMXQJ","agentRole":"assistant","agentId":"assistant","rejectionReason":"disabled","metadata":{"reason":"disabled"},"timestamp":"2026-06-08T22:47:08.992Z"}
+{"event":"prompt_injection_skipped","runId":"ses_156ad7623ffeFF5dxoBEwrMXQJ","agentRole":"assistant","agentId":"assistant","rejectionReason":"disabled","metadata":{"reason":"disabled"},"timestamp":"2026-06-08T22:52:16.041Z"}
+{"event":"prompt_injection_skipped","runId":"ses_156ad7623ffeFF5dxoBEwrMXQJ","agentRole":"assistant","agentId":"assistant","rejectionReason":"disabled","metadata":{"reason":"disabled"},"timestamp":"2026-06-08T22:52:30.398Z"}
