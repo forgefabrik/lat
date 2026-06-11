@@ -8,13 +8,13 @@
     "PUBLIC_APP_NAME": "OPG"
   },
   "d1_databases": [
-    { "binding": "OPG_DB", "database_name": "opg_db", "database_id": "REPLACE_AFTER_CREATE" }
+    { "binding": "OPG_DB", "database_name": "opg_db", "database_id": "464d03ba-9cf3-437f-9641-0f2371c15dea" }
   ],
   "r2_buckets": [
     { "binding": "OPG_ASSETS", "bucket_name": "opg-assets", "preview_bucket_name": "opg-assets-preview" }
   ],
   "kv_namespaces": [
-    { "binding": "OPG_KV", "id": "REPLACE_AFTER_CREATE", "preview_id": "REPLACE_AFTER_CREATE" }
+    { "binding": "OPG_KV", "id": "local", "preview_id": "local" }
   ],
   "queues": {
     "producers": [{ "queue": "OPG_QUEUE", "binding": "OPG_QUEUE" }],
