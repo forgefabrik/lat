@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ProviderRouter } from '../providers/Router.ts';
+import { ProviderRouter } from '../providers/Router';
 import { openrouterAdapter } from '../providers/openrouter';
 import { nvidiaAdapter } from '../providers/nvidia';
 import { kiloAdapter } from '../providers/kilo';

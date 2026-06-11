@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { validateGameSpec, GameSpec } from '../src/engine/GameSpec';
+import { validateGameSpec, GameSpec } from '../../src/engine/GameSpec';
 
 const validSpec: GameSpec = {
   id: crypto.randomUUID(),
