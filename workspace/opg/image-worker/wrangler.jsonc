@@ -1,0 +1,8 @@
+{
+  "name": "opg-image-worker",
+  "main": "worker.ts",
+  "compatibility_date": "2026-06-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "ai": { "binding": "AI" },
+  "secrets": ["IMAGE_WORKER_SECRET"]
+}
