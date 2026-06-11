@@ -1,0 +1,8 @@
+node_modules
+dist
+.dev.vars*
+.wrangler
+.env
+frontend/.next
+frontend/.env*.local
+image-worker/.wrangler

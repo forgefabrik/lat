@@ -1,7 +1,14 @@
 {
   "schema_version": 1,
-  "scanned_at": "2026-06-08T22:20:19.816Z",
+  "scanned_at": "2026-06-08T23:22:14.152Z",
   "files": [
+    {
+      "path": "docs/2026-06-08-lat_full_architecture.md",
+      "title": "2026-06-08-lat_full_architecture.md",
+      "summary": "🧱 LAT v0.1 – COMPLETE SYSTEM SPEC (CLEAN + CONSISTENT) 📁 ROOT STRUCTURE /home/bkg/repo/tower/lat/ Cargo.toml README.md IDEE.md docs/ 2026-06-08-lat_full_architecture.md crates/ lat-protocol/ lat-...",
+      "lines": 263,
+      "mtime": 1780960371923.5615
+    },
     {
       "path": "docs/ckaude_v0.1:promt.md",
       "title": "ckaude_v0.1:promt.md",
@@ -18,10 +25,10 @@
     },
     {
       "path": "docs/tasks.md",
-      "title": "tasks.md",
-      "summary": "File Structure Overview (final) ├─ Cargo.toml                         # workspace manifest ├─ README.md ├─ IDEE.md ├─ Dockerfile ├─ .dockerignore ├─ .github/ │   └─ workflows/ │       └─ ci.yml ├─ ...",
-      "lines": 1774,
-      "mtime": 1780956626891.6238
+      "title": "LAT v0.1 — Implementation Tasks",
+      "summary": "",
+      "lines": 3,
+      "mtime": 1780960933692.7664
     },
     {
       "path": "docs/what.md",
@@ -29,6 +36,13 @@
       "summary": "--- LAT ist ein: > event-driven, in-memory, tick-based society simulation engine in Rust * kein Default-Port * kein DB-MVP * alles in-memory Snapshot + diff * 1 Tick = 1 Weltzyklus * alles wird übe...",
       "lines": 1430,
       "mtime": 1780957202869.1475
+    },
+    {
+      "path": "README.md",
+      "title": "lat",
+      "summary": "",
+      "lines": 2,
+      "mtime": 1780957889654.2056
     },
     {
       "path": "v0.1_claude/AGENTS.md",
@@ -45,11 +59,25 @@
       "mtime": 1780955420464.9453
     },
     {
+      "path": "v0.1_claude/README.md",
+      "title": "lat",
+      "summary": "",
+      "lines": 2,
+      "mtime": 1780958859673.6313
+    },
+    {
       "path": "v0.1_codex/AGENTS.md",
       "title": "AGENTS.md",
       "summary": "This repository is a Rust workspace structured as a vertical simulation system. Top‑level directories: - `crates/` → Core Rust modules (simulation engine, protocol, server, economy, life, dungeon, ...",
       "lines": 222,
       "mtime": 1780956284429.5935
+    },
+    {
+      "path": "v0.1_codex/README.md",
+      "title": "lat",
+      "summary": "",
+      "lines": 2,
+      "mtime": 1780958850085.6665
     }
   ]
 }

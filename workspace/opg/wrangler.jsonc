@@ -1,0 +1,27 @@
+{
+  "name": "opg",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-06-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "APP_ENV": "dev",
+    "PUBLIC_APP_NAME": "OPG"
+  },
+  "d1_databases": [
+    { "binding": "OPG_DB", "database_name": "opg_db", "database_id": "REPLACE_AFTER_CREATE" }
+  ],
+  "r2_buckets": [
+    { "binding": "OPG_ASSETS", "bucket_name": "opg-assets", "preview_bucket_name": "opg-assets-preview" }
+  ],
+  "kv_namespaces": [
+    { "binding": "OPG_KV", "id": "REPLACE_AFTER_CREATE", "preview_id": "REPLACE_AFTER_CREATE" }
+  ],
+  "queues": {
+    "producers": [{ "queue": "OPG_QUEUE", "binding": "OPG_QUEUE" }],
+    "consumers": [{ "queue": "OPG_QUEUE", "max_batch_size": 10, "max_retries": 3 }]
+  },
+  "assets": {
+    "directory": "frontend/out",
+    "binding": "ASSETS"
+  }
+}

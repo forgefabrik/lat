@@ -1,0 +1,20 @@
+{
+  "name": "opg",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "tsc -p tsconfig.json",
+    "deploy": "wrangler deploy",
+    "db:generate": "wrangler d1 migrations create opg_db migrations",
+    "db:apply:local": "wrangler d1 migrations apply opg_db --local",
+    "db:apply:remote": "wrangler d1 migrations apply opg_db --remote",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250611.0",
+    "typescript": "^5.7.2",
+    "wrangler": "^4.0.0"
+  }
+}

@@ -1,0 +1,5 @@
+ADMIN_KEY=change-me
+SESSION_SECRET=change-me
+KEY_ENCRYPTION_SECRET=change-me
+IMAGE_WORKER_SECRET=change-me
+IMAGE_WORKER_URL=http://localhost:8788
