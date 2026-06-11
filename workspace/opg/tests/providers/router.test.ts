@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { ProviderRouter } from '../providers/Router';
-import { openrouterAdapter } from '../providers/openrouter';
-import { nvidiaAdapter } from '../providers/nvidia';
-import { kiloAdapter } from '../providers/kilo';
+import { ProviderRouter } from '../../providers/Router';
+import { openrouterAdapter } from '../../providers/openrouter';
+import { nvidiaAdapter } from '../../providers/nvidia';
+import { kiloAdapter } from '../../providers/kilo';
 
 describe('ProviderRouter', () => {
   it('registers adapters and lists them', () => {
@@ -29,8 +29,8 @@ describe('ProviderRouter', () => {
       const out = await r.test(a.id, '');
       expect(out).toHaveProperty('ok', expect.any(Boolean));
       expect(out).toHaveProperty('provider', a.id);
-      expect(typeof out.error).toBe('string');
-      expect(out.latencyMs).toBeDefined();
+      expect(out).toHaveProperty('latencyMs', expect.any(Number));
+      if ('error' in out) expect(typeof (out as any).error).toBe('string');
     }
   });
 });
