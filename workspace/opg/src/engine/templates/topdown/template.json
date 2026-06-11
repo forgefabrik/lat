@@ -1,0 +1,11 @@
+{
+  "name": "topdown",
+  "engineApi": ["init", "update", "render", "move", "interact", "transitionRoom"],
+  "requiredAssets": ["player_down", "player_up", "tileset", "npc_1", "key", "door", "ui_icons"],
+  "level": { "width": 20, "height": 15, "tileSize": 16 },
+  "player": { "spawn": { "x": 5, "y": 5 }},
+  "exit": null,
+  "hazards": [],
+  "enemies": [],
+  "items": []
+}

@@ -1,0 +1,11 @@
+{
+  "name": "shooter",
+  "engineApi": ["init", "update", "render", "shoot", "spawnWave", "endBoss"],
+  "requiredAssets": ["player_ship", "bullet", "enemy_1", "powerup", "boss", "background", "ui_icons"],
+  "level": { "width": 1, "height": 1, "tileSize": 1 },
+  "player": { "spawn": { "x": 0, "y": 0 }},
+  "exit": null,
+  "hazards": [],
+  "enemies": [],
+  "items": []
+}

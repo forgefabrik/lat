@@ -1,0 +1,11 @@
+{
+  "name": "platformer",
+  "engineApi": ["init", "update", "render", "collide", "spawnEnemy", "spawnItem", "endLevel"],
+  "requiredAssets": ["player_idle", "player_walk", "player_jump", "player_attack", "enemy_idle", "tileset", "background", "ui_icons"],
+  "level": { "width": 40, "height": 12, "tileSize": 16 },
+  "player": { "spawn": { "x": 2, "y": 5 }},
+  "exit": { "x": 38, "y": 5 },
+  "hazards": [],
+  "enemies": [],
+  "items": []
+}

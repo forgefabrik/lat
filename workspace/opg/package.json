@@ -10,12 +10,14 @@
     "db:apply:local": "wrangler d1 migrations apply opg_db --local",
     "db:apply:remote": "wrangler d1 migrations apply opg_db --remote",
     "type-check": "tsc --noEmit",
-    "lint": "eslint src --ext ts"
+    "lint": "eslint src --ext ts",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250611.0",
     "typescript": "^5.9.3",
     "typescript-language-server": "^5.3.0",
+    "vitest": "^3.2.6",
     "wrangler": "^4.0.0"
   }
 }

@@ -1,0 +1,11 @@
+{
+  "name": "rpg-lite",
+  "engineApi": ["init", "update", "render", "interact", "openInventory", "transitionRoom"],
+  "requiredAssets": ["player_down", "npc_1", "enemy_1", "chest", "sword", "tileset", "ui_icons"],
+  "level": { "width": 10, "height": 10, "tileSize": 16 },
+  "player": { "spawn": { "x": 3, "y": 3 }},
+  "exit": null,
+  "hazards": [],
+  "enemies": [],
+  "items": []
+}

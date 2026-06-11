@@ -1,0 +1,11 @@
+{
+  "name": "collectathon",
+  "engineApi": ["init", "update", "render", "collect", "endLevel"],
+  "requiredAssets": ["player_idle", "player_jump", "coin", "gem", "hazard", "tileset", "ui_icons"],
+  "level": { "width": 30, "height": 10, "tileSize": 16 },
+  "player": { "spawn": { "x": 2, "y": 5 }},
+  "exit": { "x": 28, "y": 5 },
+  "hazards": [],
+  "enemies": [],
+  "items": []
+}

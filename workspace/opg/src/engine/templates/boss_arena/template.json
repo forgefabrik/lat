@@ -1,0 +1,11 @@
+{
+  "name": "boss_arena",
+  "engineApi": ["init", "update", "render", "attack", "dodge", "nextPhase"],
+  "requiredAssets": ["player_idle", "player_attack", "boss_idle", "boss_attack", "projectile", "tileset", "ui_icons"],
+  "level": { "width": 1, "height": 1, "tileSize": 16 },
+  "player": { "spawn": { "x": 0, "y": 0 }},
+  "exit": null,
+  "hazards": [],
+  "enemies": [],
+  "items": []
+}
