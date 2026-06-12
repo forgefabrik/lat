@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World - OPG</title>
+  <link rel="stylesheet" href="/static/css/main.css">
+  <style>
+    .world-grid { display: grid; gap: 1px; background: #000; border: 1px solid var(--border); }
+    .world-cell { width: 16px; height: 16px; background: #1a1a2e; cursor: pointer; transition: background 0.05s; }
+    .world-cell:hover { outline: 1px solid rgba(124,92,231,0.3); }
+    .tile-palette { display: grid; grid-template-columns: repeat(auto-fill, minmax(32px, 1fr)); gap: 6px; margin-top: 8px; }
+    .tile-swatch { width: 32px; height: 32px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; image-rendering: pixelated; background: #000; }
+    .tile-swatch.active { outline: 2px solid var(--accent-primary); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-header"><h1>OPG</h1></div>
+      <nav class="sidebar-nav">
+        <a href="/"><span class="icon">🏠</span><span>Studio</span></a>
+        <a href="/live"><span class="icon">🔴</span><span>Live</span></a>
+        <a href="/paint"><span class="icon">🎨</span><span>Paint</span></a>
+        <a href="/animate"><span class="icon">🎬</span><span>Animate</span></a>
+        <a href="/world"><span class="icon">🗺️</span><span>World</span></a>
+        <a href="/assets"><span class="icon">📦</span><span>Assets</span></a>
+        <a href="/code"><span class="icon">💻</span><span>Code</span></a>
+        <a href="/preview"><span class="icon">▶️</span><span>Preview</span></a>
+        <a href="/iterate"><span class="icon">🔄</span><span>Iterate</span></a>
+        <a href="/export"><span class="icon">📤</span><span>Export</span></a>
+        <a href="/settings"><span class="icon">⚙️</span><span>Settings</span></a>
+        <a href="/admin"><span class="icon">🛡️</span><span>Admin</span></a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-title">World</div>
+        <div class="topbar-spacer"></div>
+        <div id="job-status" class="badge badge-info">Ready</div>
+      </header>
+      <div class="content">
+        <div class="grid grid-2" style="height: calc(100vh - 120px);">
+          <div>
+            <div class="card" style="height: 100%; display: flex; flex-direction: column;">
+              <h3>Tilemap</h3>
+              <div id="world-canvas" class="world-grid" style="flex: 1; overflow: auto; max-height: 60vh;"></div>
+              <div style="margin-top: 8px; display: flex; gap: 6px;">
+                <button class="btn btn-sm" onclick="setLayer('collision')">Collision</button>
+                <button class="btn btn-sm" onclick="setLayer('bg')">Background</button>
+                <button class="btn btn-sm" onclick="setLayer('fg')">Foreground</button>
+                <button class="btn btn-sm" onclick="setLayer('spawns')">Spawns</button>
+                <button class="btn btn-sm" onclick="exportLevel()">Export JSON</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <h3>Tileset</h3>
+              <div class="tile-palette" id="tile-palette"></div>
+            </div>
+            <div class="card">
+              <h3>Entities</h3>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <button class="btn btn-sm" onclick="placeEntity('player')">🧙 Player</button>
+                <button class="btn btn-sm" onclick="placeEntity('enemy')">👾 Enemy</button>
+                <button class="btn btn-sm" onclick="placeEntity('boss')">👑 Boss</button>
+                <button class="btn btn-sm" onclick="placeEntity('item')">🟣 Item</button>
+                <button class="btn btn-sm" onclick="placeEntity('exit')">🚪 Exit</button>
+                <button class="btn btn-sm" onclick="placeEntity('hazard')">🔥 Hazard</button>
+              </div>
+            </div>
+            <div class="card">
+              <h3>AI Level Explanation</h3>
+              <div id="ai-explanation" style="font-size: 12px; color: var(--text-secondary); font-family: var(--font-mono);">No level data yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    const WORLD_W = 80, WORLD_H = 60;
+    const TILES = [
+      { id: 'empty', color: '#0a0a0f', label: 'Empty' },
+      { id: 'ground', color: '#1a1a2e', label: 'Ground' },
+      { id: 'brick', color: '#7c5ce7', label: 'Brick' },
+      { id: 'grass', color: '#4ade80', label: 'Grass' },
+      { id: 'stone', color: '#6a6a80', label: 'Stone' },
+      { id: 'water', color: '#5b8def', label: 'Water' },
+      { id: 'lava', color: '#e94560', label: 'Lava' },
+    ];
+    let currentTile = TILES[0].color;
+    let currentLayer = 'collision';
+    const grid = Array.from({ length: WORLD_H }, () => Array(WORLD_W).fill('#0a0a0f'));
+
+    function buildGrid() {
+      const el = document.getElementById('world-canvas');
+      el.innerHTML = '';
+      const wrap = document.createElement('div');
+      wrap.style.display = 'grid';
+      wrap.style.gridTemplateColumns = WORLD_W + ' 1fr';
+      wrap.style.gap = '1px';
+      wrap.style.background = '#000';
+      for (let y = 0; y < WORLD_H; y++) {
+        for (let x = 0; x < WORLD_W; x++) {
+          const cell = document.createElement('div');
+          cell.className = 'world-cell';
+          cell.style.background = grid[y][x];
+          cell.dataset.x = x;
+          cell.dataset.y = y;
+          cell.onclick = () => { grid[y][x] = currentTile; cell.style.background = currentTile; };
+          cell.oncontextmenu = (e) => { e.preventDefault(); grid[y][x] = TILES[0].color; cell.style.background = TILES[0].color; };
+          wrap.appendChild(cell);
+        }
+      }
+      el.appendChild(wrap);
+    }
+
+    function buildPalette() {
+      const el = document.getElementById('tile-palette');
+      el.innerHTML = '';
+      TILES.forEach((t, i) => {
+        const sw = document.createElement('div');
+        sw.className = 'tile-swatch' + (i === 0 ? ' active' : '');
+        sw.style.background = t.color;
+        sw.title = t.label;
+        sw.onclick = () => {
+          currentTile = t.color;
+          document.querySelectorAll('.tile-swatch').forEach(s => s.classList.remove('active'));
+          sw.classList.add('active');
+        };
+        el.appendChild(sw);
+      });
+    }
+
+    function setLayer(layer) {
+      currentLayer = layer;
+      document.getElementById('ai-explanation').textContent = 'Switched to layer: ' + layer + ' (stub — wire to Level Designer Agent).';
+    }
+
+    function placeEntity(type) {
+      document.getElementById('ai-explanation').textContent = 'Place ' + type + ' (click on tilemap).';
+    }
+
+    function exportLevel() {
+      const blob = new Blob([JSON.stringify({ width: WORLD_W, height: WORLD_H, grid, entities: [] }, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'level.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    buildGrid();
+    buildPalette();
+  </script>
+</body>
+</html>
