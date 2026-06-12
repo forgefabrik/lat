@@ -3,6 +3,7 @@ import { handleProviderTest, handleProviderList } from './providers';
 import { handleGamesGenerate, handleIterate, handleExport } from './games';
 import { handleJobEvents, handleJobStatus } from './jobs';
 import { handlePreview, handlePixelContinue, handleAnimationGenerate, handleAssetRegenerate } from './assets';
+import { handleAdminStats, handleAdminJobs, handleAdminJobRetry, handleAdminQueue } from './admin';
 
 import type { Env } from '../env';
 import { GameAgentOrchestrator } from '../agents/GameAgentOrchestrator';
@@ -54,6 +55,18 @@ export class Router {
 
     // Preview
     if (url.pathname.match(/^\/api\/games\/[^/]+\/preview$/)) return handlePreview(req, env);
+
+    // Admin
+    if (url.pathname === '/api/admin/stats' && method === 'GET') return handleAdminStats(req, env);
+    if (url.pathname === '/api/admin/jobs' && method === 'GET') return handleAdminJobs(req, env);
+    const retryMatch = url.pathname.match(/^\/api\/admin\/jobs\/([^/]+)\/retry$/);
+    if (retryMatch && method === 'POST') return handleAdminJobRetry(req, env);
+    if (url.pathname === '/api/admin/queue' && method === 'GET') return handleAdminQueue(req, env);
+    if (url.pathname.startsWith('/api/admin/jobs/') && !url.pathname.endsWith('/retry')) {
+      const m = url.pathname.match(/^\/api\/admin\/jobs\/([^/]+)(?:\/([^/]+))?$/);
+      if (m && m[2] === 'events') return handleJobEvents(req, env, m[1]);
+      if (m) return handleJobStatus(req, env, m[1]);
+    }
 
     return new Response('not found', { status: 404 });
   }
