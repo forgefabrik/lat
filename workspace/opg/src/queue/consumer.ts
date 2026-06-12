@@ -1,14 +1,9 @@
 import type { Env } from '../env';
-import { GameAgentOrchestrator } from '../agents/GameAgentOrchestrator';
+import { GameDesignerAgent } from '../agents/GameDesignerAgent';
 import { AssetPlannerAgent } from '../agents/AssetPlannerAgent';
 import { LevelDesignerAgent } from '../agents/LevelDesignerAgent';
 import { buildGame } from '../engine/buildGame';
 import { validateGameSpec } from '../engine/GameSpec';
-
-const asOrch = (
-  o: GameAgentOrchestrator
-): { emit: (...args: any[]) => Promise<void> } =>
-  o as unknown as { emit(...args: any[]): Promise<void> };
 
 export interface QueueMessage {
   type: string;
@@ -21,6 +16,9 @@ export interface QueueMessage {
   quality: string;
 }
 
+import type { GameSpec } from '../engine/GameSpec';
+import { GameDesignerAgent } from '../agents/GameDesignerAgent';
+
 export class OPQueueConsumer {
   constructor(private env: Env) {}
 
@@ -32,14 +30,12 @@ export class OPQueueConsumer {
         continue;
       }
 
-      const orch = new GameAgentOrchestrator(this.env);
-      const emit = asOrch(orch).emit.bind(orch);
+      const designer = new GameDesignerAgent(this.env);
 
       try {
-        await emit(m.gameId, '(job)', 'agent.started', { agent: 'GameDesignerAgent', message: 'Designing game...' });
-
-        const designResult = await this.runGameDesigner(m);
-        const spec = designResult.spec;
+        await this.updateJob(m.gameId, 'running', 10, 'Designing game...');
+        const designResult = await designer.design(m);
+        const spec = designResult;
         const validation = validateGameSpec(spec);
         if (!validation.ok) {
           await emit(m.gameId, '(job)', 'validation.error', { errors: validation.errors });
