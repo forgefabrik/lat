@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview - OPG</title>
+  <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-header"><h1>OPG</h1></div>
+      <nav class="sidebar-nav">
+        <a href="/"><span class="icon">🏠</span><span>Studio</span></a>
+        <a href="/live"><span class="icon">🔴</span><span>Live</span></a>
+        <a href="/paint"><span class="icon">🎨</span><span>Paint</span></a>
+        <a href="/animate"><span class="icon">🎬</span><span>Animate</span></a>
+        <a href="/assets"><span class="icon">📦</span><span>Assets</span></a>
+        <a href="/code"><span class="icon">💻</span><span>Code</span></a>
+        <a href="/preview"><span class="icon">▶️</span><span>Preview</span></a>
+        <a href="/iterate"><span class="icon">🔄</span><span>Iterate</span></a>
+        <a href="/export"><span class="icon">📤</span><span>Export</span></a>
+        <a href="/settings"><span class="icon">⚙️</span><span>Settings</span></a>
+        <a href="/admin"><span class="icon">🛡️</span><span>Admin</span></a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-title">Preview</div>
+        <div class="topbar-spacer"></div>
+        <div id="job-status" class="badge badge-success">Running</div>
+      </header>
+      <div class="content">
+        <div class="card" style="max-width:640px;margin:0 auto;">
+          <h3 style="text-align:center;">Game Preview</h3>
+          <canvas id="preview-canvas" width="320" height="240" style="width:100%;image-rendering:pixelated;background:#111;border:1px solid var(--border);display:block;margin:0 auto;"></canvas>
+          <div style="text-align:center;margin-top:8px;display:flex;justify-content:center;gap:8px;">
+            <button class="btn btn-sm" onclick="restartGame()">Restart</button>
+            <button class="btn btn-sm" onclick="toggleFullscreen()">Fullscreen</button>
+            <button class="btn btn-sm" onclick="reportIssue()">Report Issue</button>
+          </div>
+          <div id="preview-logs" class="console" style="margin-top:12px;">
+            <div class="console-body" style="height:120px;">
+              <div class="log-entry"><span class="log-time">00:00</span><span class="log-msg">Preview ready — awaiting player input.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

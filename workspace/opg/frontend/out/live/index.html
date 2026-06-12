@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live - OPG</title>
+  <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-header"><h1>OPG</h1></div>
+      <nav class="sidebar-nav">
+        <a href="/"><span class="icon">🏠</span><span>Studio</span></a>
+        <a href="/live"><span class="icon">🔴</span><span>Live</span></a>
+        <a href="/paint"><span class="icon">🎨</span><span>Paint</span></a>
+        <a href="/animate"><span class="icon">🎬</span><span>Animate</span></a>
+        <a href="/assets"><span class="icon">📦</span><span>Assets</span></a>
+        <a href="/code"><span class="icon">💻</span><span>Code</span></a>
+        <a href="/preview"><span class="icon">▶️</span><span>Preview</span></a>
+        <a href="/iterate"><span class="icon">🔄</span><span>Iterate</span></a>
+        <a href="/export"><span class="icon">📤</span><span>Export</span></a>
+        <a href="/settings"><span class="icon">⚙️</span><span>Settings</span></a>
+        <a href="/admin"><span class="icon">🛡️</span><span>Admin</span></a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-title">Live</div>
+        <div class="topbar-spacer"></div>
+        <div id="job-status" class="badge badge-info">Ready</div>
+      </header>
+      <div class="content">
+        <div class="grid grid-2" style="height: calc(100vh - 120px);">
+          <div>
+            <div class="card" style="height: 100%; display: flex; flex-direction: column;">
+              <h3>Agent Timeline</h3>
+              <div id="timeline" style="flex: 1; overflow-y: auto; font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary);">
+                <div class="empty-state"><h2>Waiting for job...</h2><p>Start a game generation to see live agent activity.</p></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="console" style="height: 100%; display: flex; flex-direction: column;">
+              <div class="console-header">
+                <div class="console-dot" style="background: var(--success)"></div>
+                Live Agent Console
+                <span style="margin-left: auto; color: var(--text-muted); font-size: 12px;">auto-connects</span>
+              </div>
+              <div class="console-body" id="logs" style="flex: 1;">
+                <div class="empty-state"><h2>No events yet</h2><p>Agent events will appear here in real-time.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    function addLog(agent, type, payload) {
+      const el = document.getElementById('logs');
+      const tl = document.getElementById('timeline');
+      const time = new Date().toLocaleTimeString();
+      const row = document.createElement('div');
+      row.className = 'log-entry';
+      let cls = 'log-msg';
+      if (type && type.includes('error')) cls = 'log-error';
+      else if (type && type.includes('warn')) cls = 'log-warn';
+      else if (type && type.includes('tool')) cls = 'log-tool';
+      const summary = payload ? JSON.stringify(payload).slice(0, 80) : '';
+      row.innerHTML = '<span class="log-time">' + time + '</span><span class="log-agent">' + (agent || 'system') + '</span><span class="' + cls + '">' + (type || 'event') + ' ' + summary + '</span>';
+      el.prepend(row);
+      while (el.children.length > 200) el.lastChild.remove();
+      const item = document.createElement('div');
+      item.style.cssText = 'padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 11px; color: var(--text-muted);';
+      item.textContent = '[' + time + '] ' + (agent || 'system') + ' → ' + (type || 'event');
+      tl.prepend(item);
+      while (tl.children.length > 200) tl.lastChild.remove();
+    }
+    (function connect() {
+      const es = new EventSource('/api/jobs/latest/events');
+      es.onmessage = (e) => {
+        try {
+          const d = JSON.parse(e.data);
+          addLog(d.agent, d.type, d.payload);
+        } catch (err) { /* ignore */ }
+      };
+      es.onerror = () => { es.close(); setTimeout(connect, 2000); };
+    })();
+  </script>
+</body>
+</html>

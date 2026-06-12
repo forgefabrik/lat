@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paint - OPG</title>
+  <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-header"><h1>OPG</h1></div>
+      <nav class="sidebar-nav">
+        <a href="/"><span class="icon">🏠</span><span>Studio</span></a>
+        <a href="/live"><span class="icon">🔴</span><span>Live</span></a>
+        <a href="/paint"><span class="icon">🎨</span><span>Paint</span></a>
+        <a href="/animate"><span class="icon">🎬</span><span>Animate</span></a>
+        <a href="/assets"><span class="icon">📦</span><span>Assets</span></a>
+        <a href="/code"><span class="icon">💻</span><span>Code</span></a>
+        <a href="/preview"><span class="icon">▶️</span><span>Preview</span></a>
+        <a href="/iterate"><span class="icon">🔄</span><span>Iterate</span></a>
+        <a href="/export"><span class="icon">📤</span><span>Export</span></a>
+        <a href="/settings"><span class="icon">⚙️</span><span>Settings</span></a>
+        <a href="/admin"><span class="icon">🛡️</span><span>Admin</span></a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-title">Paint</div>
+        <div class="topbar-spacer"></div>
+        <div id="job-status" class="badge badge-info">Ready</div>
+      </header>
+      <div class="content">
+        <div class="grid grid-2">
+          <div>
+            <div class="card">
+              <h3>Canvas</h3>
+              <canvas id="pixel-canvas" class="pixel-canvas" width="256" height="256"></canvas>
+              <div style="margin-top: 8px; display: flex; gap: 6px;">
+                <button class="btn btn-sm" onclick="undo()">Undo</button>
+                <button class="btn btn-sm" onclick="redo()">Redo</button>
+                <button class="btn btn-sm" onclick="exportPNG()">Export PNG</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <h3>Tools</h3>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <button class="btn btn-sm active" onclick="setTool('brush')">Brush</button>
+                <button class="btn btn-sm" onclick="setTool('eraser')">Eraser</button>
+                <button class="btn btn-sm" onclick="setTool('fill')">Fill</button>
+                <button class="btn btn-sm" onclick="setTool('line')">Line</button>
+                <button class="btn btn-sm" onclick="setTool('rect')">Rect</button>
+                <button class="btn btn-sm" onclick="setTool('circle')">Circle</button>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Palette</h3>
+              <div id="palette" style="display: flex; flex-wrap: wrap; gap: 4px;"></div>
+            </div>
+            <div class="card">
+              <h3>Agent Tools</h3>
+              <div id="tool-calls"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    const canvas = document.getElementById('pixel-canvas');
+    const ctx = canvas.getContext('2d');
+    const PALETTE = ['#000000','#ffffff','#ff0000','#00ff00','#0000ff','#ffff00','#ff00ff','#00ffff','#ff8800','#8800ff','#444444','#888888'];
+    const palEl = document.getElementById('palette');
+    const toolEl = document.getElementById('tool-calls');
+    let currentColor = '#000000';
+    let tool = 'brush';
+    let isDrawing = false;
+
+    PALETTE.forEach(c => {
+      const d = document.createElement('div');
+      d.style.cssText = 'width:24px;height:24px;background:' + c + ';border:1px solid var(--border);border-radius:3px;cursor:pointer;';
+      d.onclick = () => { currentColor = c; };
+      palEl.appendChild(d);
+    });
+
+    function setTool(t) {
+      tool = t;
+      document.querySelectorAll('#tool-calls').forEach(el => {});
+    }
+
+    canvas.onmousedown = (e) => { isDrawing = true; draw(e); };
+    canvas.onmousemove = (e) => { if (isDrawing) draw(e); };
+    canvas.onmouseup = () => { isDrawing = false; };
+    canvas.onmouseleave = () => { isDrawing = false; };
+
+    function draw(e) {
+      const r = canvas.getBoundingClientRect();
+      const x = Math.floor((e.clientX - r.left) / (r.width / 32));
+      const y = Math.floor((e.clientY - r.top) / (r.height / 32));
+      ctx.fillStyle = tool === 'eraser' ? '#ffffff' : currentColor;
+      const size = tool === 'eraser' ? 3 : 1;
+      ctx.fillRect(x * 8, y * 8, size * 8, size * 8);
+    }
+
+    function undo() { alert('Undo: history stack not yet wired'); }
+    function redo() { alert('Redo: history stack not yet wired'); }
+    function exportPNG() {
+      const link = document.createElement('a');
+      link.download = 'pixel-art.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+  </script>
+</body>
+</html>

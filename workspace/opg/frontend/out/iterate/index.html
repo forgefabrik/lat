@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iterate - OPG</title>
+  <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-header"><h1>OPG</h1></div>
+      <nav class="sidebar-nav">
+        <a href="/"><span class="icon">🏠</span><span>Studio</span></a>
+        <a href="/live"><span class="icon">🔴</span><span>Live</span></a>
+        <a href="/paint"><span class="icon">🎨</span><span>Paint</span></a>
+        <a href="/animate"><span class="icon">🎬</span><span>Animate</span></a>
+        <a href="/assets"><span class="icon">📦</span><span>Assets</span></a>
+        <a href="/code"><span class="icon">💻</span><span>Code</span></a>
+        <a href="/preview"><span class="icon">▶️</span><span>Preview</span></a>
+        <a href="/iterate"><span class="icon">🔄</span><span>Iterate</span></a>
+        <a href="/export"><span class="icon">📤</span><span>Export</span></a>
+        <a href="/settings"><span class="icon">⚙️</span><span>Settings</span></a>
+        <a href="/admin"><span class="icon">🛡️</span><span>Admin</span></a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-title">Iterate</div>
+        <div class="topbar-spacer"></div>
+        <div id="job-status" class="badge badge-info">Ready</div>
+      </header>
+      <div class="content">
+        <div class="card">
+          <h3>Iterate on your game</h3>
+          <textarea class="textarea" placeholder="Describe changes...&#10;Example: Make the boss bigger. Add more lava. Darker tileset." id="iterate-prompt" style="min-height:120px;"></textarea>
+          <div style="margin-top:8px;display:flex;gap:8px;">
+            <button class="btn btn-primary" onclick="iterateSubmit()">Apply Changes</button>
+          </div>
+          <div id="iterate-result" style="margin-top:12px;"></div>
+        </div>
+        <div class="card">
+          <h3>History</h3>
+          <div id="history" style="color:var(--text-muted);font-size:12px;">No iterations yet.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    async function iterateSubmit() {
+      const prompt = document.getElementById('iterate-prompt').value.trim();
+      if (!prompt) return;
+      document.getElementById('iterate-result').innerHTML = '<div class="badge badge-warning">Iteration queued (wire to /api/games/:id/iterate).</div>';
+    }
+  </script>
+</body>
+</html>

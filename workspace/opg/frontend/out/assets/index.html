@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assets - OPG</title>
+  <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-header"><h1>OPG</h1></div>
+      <nav class="sidebar-nav">
+        <a href="/"><span class="icon">🏠</span><span>Studio</span></a>
+        <a href="/live"><span class="icon">🔴</span><span>Live</span></a>
+        <a href="/paint"><span class="icon">🎨</span><span>Paint</span></a>
+        <a href="/animate"><span class="icon">🎬</span><span>Animate</span></a>
+        <a href="/assets"><span class="icon">📦</span><span>Assets</span></a>
+        <a href="/code"><span class="icon">💻</span><span>Code</span></a>
+        <a href="/preview"><span class="icon">▶️</span><span>Preview</span></a>
+        <a href="/iterate"><span class="icon">🔄</span><span>Iterate</span></a>
+        <a href="/export"><span class="icon">📤</span><span>Export</span></a>
+        <a href="/settings"><span class="icon">⚙️</span><span>Settings</span></a>
+        <a href="/admin"><span class="icon">🛡️</span><span>Admin</span></a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-title">Assets</div>
+        <div class="topbar-spacer"></div>
+        <div id="job-status" class="badge badge-info">Ready</div>
+      </header>
+      <div class="content">
+        <div class="tabs">
+          <button class="tab active">All</button>
+          <button class="tab">Sprites</button>
+          <button class="tab">Tiles</button>
+          <button class="tab">Backgrounds</button>
+          <button class="tab">UI</button>
+        </div>
+        <div class="grid grid-4" id="asset-grid">
+          <div class="card" style="text-align:center;padding:24px;">
+            <div style="font-size:32px;">🧙</div>
+            <div style="margin-top:8px;font-weight:600;">player_idle</div>
+            <div class="badge badge-success">Ready</div>
+          </div>
+          <div class="card" style="text-align:center;padding:24px;">
+            <div style="font-size:32px;">👾</div>
+            <div style="margin-top:8px;font-weight:600;">enemy_walk</div>
+            <div class="badge badge-warning">Pending</div>
+          </div>
+          <div class="card" style="text-align:center;padding:24px;">
+            <div style="font-size:32px;">👑</div>
+            <div style="margin-top:8px;font-weight:600;">boss_idle</div>
+            <div class="badge badge-info">Queued</div>
+          </div>
+          <div class="card" style="text-align:center;padding:24px;">
+            <div style="font-size:32px;">🟣</div>
+            <div style="margin-top:8px;font-weight:600;">tileset</div>
+            <div class="badge badge-error">Failed</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.onclick = () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      };
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animate - OPG</title>
+  <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-header"><h1>OPG</h1></div>
+      <nav class="sidebar-nav">
+        <a href="/"><span class="icon">🏠</span><span>Studio</span></a>
+        <a href="/live"><span class="icon">🔴</span><span>Live</span></a>
+        <a href="/paint"><span class="icon">🎨</span><span>Paint</span></a>
+        <a href="/animate"><span class="icon">🎬</span><span>Animate</span></a>
+        <a href="/assets"><span class="icon">📦</span><span>Assets</span></a>
+        <a href="/code"><span class="icon">💻</span><span>Code</span></a>
+        <a href="/preview"><span class="icon">▶️</span><span>Preview</span></a>
+        <a href="/iterate"><span class="icon">🔄</span><span>Iterate</span></a>
+        <a href="/export"><span class="icon">📤</span><span>Export</span></a>
+        <a href="/settings"><span class="icon">⚙️</span><span>Settings</span></a>
+        <a href="/admin"><span class="icon">🛡️</span><span>Admin</span></a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-title">Animate</div>
+        <div class="topbar-spacer"></div>
+        <div id="job-status" class="badge badge-info">Ready</div>
+      </header>
+      <div class="content">
+        <div class="grid grid-2" style="height: calc(100vh - 120px);">
+          <div>
+            <div class="card">
+              <h3>Preview</h3>
+              <canvas id="anim-preview" width="128" height="128" style="image-rendering: pixelated; background: repeating-conic-gradient(#ccc 0% 25%, white 0% 50%) 50%/16px 16px; border: 1px solid var(--border); display: block; margin: 0 auto;"></canvas>
+              <div style="text-align: center; margin-top: 8px; display: flex; justify-content: center; gap: 8px;">
+                <button class="btn btn-sm" onclick="stepFrame(-1)">⏮</button>
+                <button class="btn btn-sm" onclick="togglePlay()">⏯</button>
+                <button class="btn btn-sm" onclick="stepFrame(1)">⏭</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <h3>Controls</h3>
+              <div style="margin-bottom: 8px;">
+                <label style="color: var(--text-secondary); font-size: 12px;">FPS</label>
+                <input class="input" type="number" value="12" id="fps" min="1" max="60">
+              </div>
+              <div style="margin-bottom: 8px;">
+                <label style="color: var(--text-secondary); font-size: 12px;">Frames</label>
+                <input class="input" type="number" value="4" id="frame-count" min="1" max="64">
+              </div>
+              <div style="margin-bottom: 8px;">
+                <label style="display: flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 12px; cursor: pointer;">
+                  <input type="checkbox" id="loop-toggle" checked> Loop
+                </label>
+              </div>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn btn-primary btn-sm" onclick="generateAnimation()">Generate</button>
+                <button class="btn btn-sm" onclick="exportGif()">Export GIF</button>
+                <button class="btn btn-sm" onclick="exportPng()">Export PNG</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    let frames = [];
+    let currentFrame = 0;
+    let playing = true;
+    let fps = 12;
+    let animId = null;
+    const canvas = document.getElementById('anim-preview');
+    const ctx = canvas.getContext('2d');
+
+    function generateAnimation() {
+      fps = parseInt(document.getElementById('fps').value) || 12;
+      const count = parseInt(document.getElementById('frame-count').value) || 4;
+      frames = [];
+      for (let i = 0; i < count; i++) {
+        const frame = [];
+        for (let y = 0; y < 16; y++) {
+          for (let x = 0; x < 16; x++) {
+            frame.push('#' + ['000','f00','0f0','00f','ff0','f0f','0ff','888'][Math.floor(Math.random() * 8)]);
+          }
+        }
+        frames.push(frame);
+      }
+      currentFrame = 0;
+      alert('Generated ' + count + ' placeholder frames (wire to /api/animations/generate).');
+    }
+
+    function drawFrame() {
+      ctx.clearRect(0, 0, 128, 128);
+      if (!frames.length) return;
+      const frame = frames[currentFrame];
+      for (let i = 0; i < frame.length; i++) {
+        const x = (i % 16) * 8;
+        const y = Math.floor(i / 16) * 8;
+        ctx.fillStyle = frame[i];
+        ctx.fillRect(x, y, 8, 8);
+      }
+    }
+
+    function loop() {
+      if (!playing) return;
+      drawFrame();
+      currentFrame = (currentFrame + 1) % frames.length;
+      animId = setTimeout(() => requestAnimationFrame(loop), 1000 / fps);
+    }
+
+    function togglePlay() {
+      playing = !playing;
+      if (playing) loop();
+      else clearTimeout(animId);
+    }
+
+    function stepFrame(dir) {
+      playing = false;
+      clearTimeout(animId);
+      currentFrame = (currentFrame + dir + frames.length) % frames.length;
+      drawFrame();
+    }
+
+    generateAnimation();
+    loop();
+    document.getElementById('fps').onchange = () => { fps = parseInt(document.getElementById('fps').value) || 12; };
+  </script>
+</body>
+</html>
